@@ -11,14 +11,17 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:~/nvim-linux64/bin
+export PATH=$PATH:~/personal-tools/wifi-allow-list/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -113,28 +116,28 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # Alias for creating Portainer data volume
-alias portainer-create-volume='sudo docker volume create portainer_data'
+#alias portainer-create-volume='sudo docker volume create portainer_data'
 
 # Alias for starting Portainer
-alias portainer-start='sudo docker run -d -p 9003:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce'
+#alias portainer-start='sudo docker run -d -p 9003:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce'
 
 # Alias for stopping Portainer
-alias portainer-stop='sudo docker stop portainer'
+#alias portainer-stop='sudo docker stop portainer'
 
 # Alias for removing Portainer
-alias portainer-remove='sudo docker rm -v portainer && sudo docker volume rm portainer_data'
+#alias portainer-remove='sudo docker rm -v portainer && sudo docker volume rm portainer_data'
 
 #alias for start xampp
-alias xampp-start="sudo /opt/lampp/lampp start"
+#alias xampp-start="sudo /opt/lampp/lampp start"
 
 #alias for stop xampp
-alias xampp-stop="sudo /opt/lampp/lampp stop"
+#alias xampp-stop="sudo /opt/lampp/lampp stop"
 
 #alias for restart xampp
-alias xampp-restart="sudo /opt/lampp/lampp restart"
+#alias xampp-restart="sudo /opt/lampp/lampp restart"
 
 #alias for open xampp
-alias xampp="sudo /opt/lampp/manager-linux-x64.run"
+#alias xampp="sudo /opt/lampp/manager-linux-x64.run"
 
 #i3lock 
 alias lock="~/.config/i3/script/i3exit.sh lock"
@@ -143,8 +146,24 @@ alias suspend="~/.config/i3/script/i3exit.sh suspend"
 alias hibernate="~/.config/i3/script/i3exit.sh hibernate"
 alias reboot="~/.config/i3/script/i3exit.sh reboot"
 alias shutdown="~/.config/i3/script/i3exit.sh shutdown"
+#volume:
+# Function to set the volume to a specified percentage
+set_volume() {
+  amixer -D pulse sset Master playback "$1%"
+}
 
+# Alias to call the set_volume function
+alias setvol='set_volume'
+#copy to clipboard:
+#
+to_clipboard(){
+  echo "$1" | xclip -selection clipboard
+}
 
+alias tocb='to_clipboard'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Enable vi mode
+bindkey -v

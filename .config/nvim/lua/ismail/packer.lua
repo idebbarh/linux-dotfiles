@@ -14,7 +14,7 @@ return require("packer").startup(function(use)
 	--telescop
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		tag = "0.1.4",
 		-- or                            , branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
@@ -26,6 +26,10 @@ return require("packer").startup(function(use)
 	use("folke/tokyonight.nvim")
 	--gruvbox theme
 	use({ "ellisonleao/gruvbox.nvim" })
+	--catppuccin
+	use({ "catppuccin/nvim", as = "catppuccin" })
+	--kangawa
+	use("rebelot/kanagawa.nvim")
 	--xresources
 	use("nekonako/xresources-nvim")
 	--to navigate between windowns with C+kjlh
@@ -56,8 +60,11 @@ return require("packer").startup(function(use)
 	use("jayp0521/mason-null-ls.nvim")
 	--lspsaga
 	use({
-		"glepnir/lspsaga.nvim",
-		branch = "main",
+		"nvimdev/lspsaga.nvim",
+		after = "nvim-lspconfig",
+		config = function()
+			require("lspsaga").setup({})
+		end,
 	})
 	--treesitter
 	use({
@@ -70,9 +77,6 @@ return require("packer").startup(function(use)
 	use({
 		"akinsho/toggleterm.nvim",
 		tag = "*",
-		config = function()
-			require("toggleterm").setup()
-		end,
 	})
 	--zenmode
 	use("folke/zen-mode.nvim")
